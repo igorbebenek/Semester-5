@@ -1,0 +1,17 @@
+{
+    "name": "igorb/lab4zi2",
+    "autoload": {
+        "psr-4": {
+            "Igorb\\Lab4zi2\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Igor Bębenek",
+            "email": "139233781+igorbebenek@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "doctrine/dbal": "^4.2"
+    }
+}
