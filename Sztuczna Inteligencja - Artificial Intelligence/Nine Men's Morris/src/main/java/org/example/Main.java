@@ -239,8 +239,21 @@ class Mill extends GameStateImpl {
         List<GameState> children = new ArrayList<>();
         int opponent = maximizingTurnNow ? BLACK : WHITE;
 
+        boolean hasNonMillPieces = false;
+        for (int pos = 0; pos < board.length; pos++) {
+            if (board[pos] == opponent && !isPartOfMill(pos)) {
+                hasNonMillPieces = true;
+                break;
+            }
+        }
+
         for (int pos = 0; pos < board.length; pos++) {
             if (board[pos] == opponent) {
+                // If there are pieces not in mills, only allow removing those
+                if (hasNonMillPieces && isPartOfMill(pos)) {
+                    continue;
+                }
+
                 Mill child = new Mill(this);
                 child.board[pos] = EMPTY;
                 if (opponent == WHITE) {
@@ -425,7 +438,7 @@ class Mill extends GameStateImpl {
             System.out.println(game.toString());
 
             if (game.maximizingTurnNow) {
-                // Tura człowieka
+                // człowiek
                 List<GameState> children = game.generateChildren();
                 boolean validMove = false;
                 do {
@@ -448,7 +461,7 @@ class Mill extends GameStateImpl {
                     }
                 } while (!validMove);
             } else {
-                // Tura komputera
+                // komputer
                 System.out.println("\nComputer thinking...");
 
                 alg.setInitial(game);
